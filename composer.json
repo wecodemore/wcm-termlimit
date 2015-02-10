@@ -1,0 +1,41 @@
+{
+	"name":        "wecodemore/termlimit",
+	"description": "WordPress plugin to limit the amount of tags, categories or custom taxonomy taxons on a per post type basis.",
+	"keywords":    [ "wordpress", "plugin", "post", "term", "category", "taxonomy", "tag" ],
+	"type":        "wordpress-plugin",
+	"homepage":    "https://github.com/wecodemore/wcm-termlimit",
+	"license":     "MIT",
+	"authors":     [
+		{
+			"name":     "Franz Josef Kaiser",
+			"email":    "wecodemore@gmail.com",
+			"homepage": "http://unserkaiser.com",
+			"role":     "Developer"
+		}
+	],
+	"support":     {
+		"issues": "https://github.com/wecodemore/wcm-termlimit/issues",
+		"source": "https://github.com/wecodemore/wcm-termlimit"
+	},
+	"require":     {
+		"php"                       : ">=5.4",
+		"composer/installers"       : "~1.0",
+		"wcm/git-php-hooks"         : "^1",
+		"wcm/git-php-hooks-library" : "^1"
+	},
+	"autoload":    {
+		"psr-4": {
+			"WCM\\TermLimit\\": "src/"
+		}
+	},
+	"config":      {
+		"optimize-autoloader": false
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"extra": {
+		"branch-alias": {
+			"dev-master": "0.1.x-dev"
+		}
+	}
+}
