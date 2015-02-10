@@ -22,40 +22,42 @@ Or simply download the ZIP and copy it into your plugin (not recommended).
 
 Simple use case in a plugin:
 
-	<?php /** Plugin Name: Term Limiter */
-	if (
-		! is_admin()
-		or ( defined( 'DOING_AJAX' ) and DOING_AJAX )
-	)
-		return;
+```php
+<?php /** Plugin Name: Term Limiter */
+if (
+	! is_admin()
+	or ( defined( 'DOING_AJAX' ) and DOING_AJAX )
+)
+	return;
 
-	$autoloader = __DIR__.'/vendor/autoload.php';
-	/** @noinspection PhpIncludeInspection */
-	file_exists( $autoloader )
-		and require_once $autoloader;
+$autoloader = __DIR__.'/vendor/autoload.php';
+/** @noinspection PhpIncludeInspection */
+file_exists( $autoloader )
+	and require_once $autoloader;
 
-	use WCM\TermLimit,
-		WCM\TermLimit\Models;
+use WCM\TermLimit,
+	WCM\TermLimit\Models;
 
-	add_action( 'save_post', function( $post_id )
-	{
-		$boundaries = new Limiter(
-			new Models\Post( $post_id ),
-			new Models\Categories
-		);
+add_action( 'save_post', function( $post_id )
+{
+	$boundaries = new Limiter(
+		new Models\Post( $post_id ),
+		new Models\Categories
+	);
 
-		// Change the min/max range of needed/allowed terms
-		$boundaries->setRange( range( 5, 10 ) );
+	// Change the min/max range of needed/allowed terms
+	$boundaries->setRange( range( 5, 10 ) );
 
-		// Change the post types the limit should get applied to
-		$boundaries->setTypes( [ 'post', 'page' ] );
+	// Change the post types the limit should get applied to
+	$boundaries->setTypes( [ 'post', 'page' ] );
 
-		// Check if the Amount of categories added is within the min/max range
-		var_dump( $boundaries->inRange() );
+	// Check if the Amount of categories added is within the min/max range
+	var_dump( $boundaries->inRange() );
 
-		// Check if the limit should be applied to the current post type
-		var_dump( $boundaries->isAllowedType() );
-	} );
+	// Check if the limit should be applied to the current post type
+	var_dump( $boundaries->isAllowedType() );
+} );
+```
 
 There are by now two classes that you can use:
 
