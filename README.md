@@ -2,13 +2,17 @@
 
 > Limits terms (categories, post tags, custom taxonomy terms) on a per post type basis
 
+Needs **PHP 5.4+** to run. Will break with lower PHP versions.
+
 ### Is this a plugin?
 
-No (not yet). It's a library (by now).
+**Yes** <strike>No (not yet). It's a library (by now).</strike>
 
 ## How to install?
 
-Just install/import it into your project using Composer
+You can simply download it and are ready to go. Still the following options are preferred.
+
+Or just install/import it into your project using Composer
 
 	composer create-project wcm/termlimits
 
@@ -16,64 +20,71 @@ Or clone the repository into your plugin directory using git
 
 	git clone git@github.com:wecodemore/wcm-termlimit.git
 
-Or simply download the ZIP and copy it into your plugin (not recommended).
-
 ## How to use?
 
-Simple use case in a plugin:
+Per default, there is a minimum of `0` terms that need to get added.
+The maximum is `3`. And the limit only applies for the `post` post type.
 
-```php
-<?php /** Plugin Name: Term Limiter */
-if (
-	! is_admin()
-	or ( defined( 'DOING_AJAX' ) and DOING_AJAX )
-)
-	return;
+To alter the limit or the type, there are two filters that you can use in
+a small child plugin:
 
-$autoloader = __DIR__.'/vendor/autoload.php';
-/** @noinspection PhpIncludeInspection */
-file_exists( $autoloader )
-	and require_once $autoloader;
+```
+<?php
+/** Plugin Name: Term Limit config */
 
-use WCM\TermLimit,
-	WCM\TermLimit\Models;
-
-add_action( 'save_post', function( $post_id )
+// Apply a minimum of 3 and a limit of 6 terms
+add_filter( 'wcm-term.limit', function( Array $limit )
 {
-	$boundaries = new Limiter(
-		new Models\Post( $post_id ),
-		new Models\Categories
-	);
+    return range( 3, 6 );
+} );
 
-	// Change the min/max range of needed/allowed terms
-	$boundaries->setRange( range( 5, 10 ) );
-
-	// Change the post types the limit should get applied to
-	$boundaries->setTypes( [ 'post', 'page' ] );
-
-	// Check if the Amount of categories added is within the min/max range
-	var_dump( $boundaries->inRange() );
-
-	// Check if the limit should be applied to the current post type
-	var_dump( $boundaries->isAllowedType() );
+// Apply the limit to the following post types
+add_filter( 'wcm-term.types', function( Array $types )
+{
+    return [ 'post', 'my-custom-post-type', ];
 } );
 ```
 
-There are by now two classes that you can use:
+In case you want to extend your limit to custom taxonomies, you will
+also have to write a quick extension/class to account for that:
 
-1. `Models\Categories` to limit categories
-1. `Models\Tags` to limit post tags
+```
+class MyCustomTaxonomy extends AbstractTaxon implements TaxonInterface
+{
+	public function __construct()
+	{
+		$this->append( explode( ",", filter_var(
+			$_POST['tax_input']['custom_terms'],
+			FILTER_SANITIZE_STRING,
+			[ FILTER_NULL_ON_FAILURE, ]
+		) ) );
+	}
+}
+```
+
+To see what exactly you should take as input/`$_POST` value, use
+the following mini-plugin to dump your `save_post` action.
+
+```
+<?php
+/** Plugin Name: (Debug) Dump $_POST during save_post */
+add_action( 'save_post', function()
+{
+	exit( var_dump( $_POST ) );
+} );
+```
+
+**Important:** Make sure that you have at least FTP access and can actually edit
+or remove the plugin. Else you will get stuck there. This will break (exit) your
+request and present you with a dump of the post.
 
 ### The @TODO List
 
-I haven't tested limiting custom taxonomy terms by now, but it shouldn't be a problem.
-In case you inspected this (just add a quick example plugin to your stack and look at the `$_POST`
-array inside a callback/action hooked to `save_post`), then please file a Pull Request and I will
-craft a third class that extends the `AbstractTaxon` that will allow adding custom taxonomy names
-and limit the amount of terms.
+Custom taxonomy terms.
 
 Also, there's by now nothing built in to do something in case the limit was exceeded or the
-needed threshold not reached (min/max taxons). Example: add a notification. The problem with this
+needed threshold not reached (min/max taxons). The plugin lets everything go through
+and just informs the user. One idea so far: extend the notification. The problem with this
 is that I have no idea what should happen in that case. Should we nuke all added terms? What if
 20 are allowed and the user added 21? Should we just cut off one? If yes: Which one? Etc.
 As you can see, there're a lot of possible UX mine traps and I have by now no idea how to solve
