@@ -14,8 +14,6 @@
  * (c) 2015 Franz Josef Kaiser
  */
 
-namespace WCM\TermLimit;
-
 if (
 	! is_admin()
 	or ( defined( 'DOING_AJAX' ) and DOING_AJAX )
@@ -27,6 +25,8 @@ $autoloader = __DIR__.'/vendor/autoload.php';
 file_exists( $autoloader )
 	and require_once $autoloader;
 
+use WCM\TermLimit\Limiter,
+	WCM\TermLimit\Models;
 
 add_action( 'wp_loaded', function()
 {
