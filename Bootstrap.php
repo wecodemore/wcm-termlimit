@@ -11,7 +11,7 @@
  * Network:     false
  * License:     MIT
  *
- * Copyright 2015 Franz Josef Kaiser
+ * (c) 2015 Franz Josef Kaiser
  */
 
 namespace WCM\TermLimit;

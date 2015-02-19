@@ -31,9 +31,12 @@ class Limiter implements TypeLimitInterface, RangeLimitInterface
 	}
 
 	/**
+	 * Just an internal helper method
+	 * Do not use to redirect to messages
+	 * Could be wrong just because the post type isn't limited
 	 * @return bool
 	 */
-	public function check()
+	public function valid()
 	{
 		return
 			$this->isAllowedType()
