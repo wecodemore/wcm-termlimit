@@ -11,9 +11,6 @@ class Post implements PostInterface
 	/** @var \WP_Post|\WP_Error */
 	private $post;
 
-	/** @var string|null */
-	private $type;
-
 	/**
 	 * @param int $post_id
 	 */
