@@ -1,10 +1,12 @@
 #!/bin/sh
-mkdir lang
-xgettext Bootstrap.php src/**/*.php \
+if [ ! -d "lang" ]; then
+	mkdir lang
+fi
+xgettext Bootstrap.php \
 	--language=PHP \
 	--indent \
 	--omit-header \
-	--package-name=wprepo \
+	--package-name=wcmtl \
 	--keyword=__:1 \
 	--keyword=_e:1 \
 	--keyword=_x:1,2c \
@@ -20,8 +22,8 @@ xgettext Bootstrap.php src/**/*.php \
 	--keyword=_n_noop:1,2 \
 	--keyword=_nx_noop:1,2,3c \
 	--keyword=ngettext:1,2 \
-	--default-domain=wprepo.po \
+	--default-domain=wcmtl.po \
 	--sort-by-file \
 	--width=80 \
 	--output-dir=lang \
-	--output=wprepo.pot
+	--output=wcmtl.pot

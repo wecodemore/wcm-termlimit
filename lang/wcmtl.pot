@@ -1,0 +1,8 @@
+#: Bootstrap.php:59
+#, php-format
+msgid   "Please chose at least %d terms"
+msgstr  ""
+
+#: Bootstrap.php:62
+msgid   "Term limit exceeded"
+msgstr  ""
