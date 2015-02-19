@@ -1,0 +1,27 @@
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.3/phpunit.xsd"
+	bootstrap="tests/Bootstrap.php"
+	colors="false"
+	verbose="true"
+	backupGlobals="true"
+	processIsolation="false"
+	stopOnError="true"
+	stopOnFailure="true"
+	stopOnIncomplete="false"
+	stopOnSkipped="false"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	strict="true">
+
+	<testsuites>
+		<testsuite name="Unit">
+			<directory>./tests</directory>
+		</testsuite>
+	</testsuites>
+
+	<logging>
+		<log type="coverage-clover" target="build/logs/clover.xml"/>
+	</logging>
+</phpunit>
