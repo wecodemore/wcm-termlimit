@@ -1,0 +1,17 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: WCM TermLimits\n"
+"Language: de\n"
+
+#: Bootstrap.php:59
+msgid "  \"Please chose at least %d terms"
+msgstr "Bitte wählen Sie mindestens %d Schlagwörter"
+
+#: Bootstrap.php:62
+msgid "  \"Term limit exceeded"
+msgstr "Zu viele Schlagwörter"
+
