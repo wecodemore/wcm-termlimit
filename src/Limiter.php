@@ -27,7 +27,6 @@ class Limiter implements TypeLimitInterface, RangeLimitInterface
 	{
 		$this->post   = $post;
 		$this->taxons = $taxons;
-		return $this;
 	}
 
 	/**
@@ -40,7 +39,7 @@ class Limiter implements TypeLimitInterface, RangeLimitInterface
 	{
 		return
 			$this->isAllowedType()
-			and $this->inRange();
+			&& $this->inRange();
 	}
 
 	/**
@@ -61,7 +60,7 @@ class Limiter implements TypeLimitInterface, RangeLimitInterface
 		$type = $this->post->getType();
 		return
 			! is_wp_error( $type )
-			and in_array( $type, $this->types );
+			&& in_array( $type, $this->types );
 	}
 
 	/**

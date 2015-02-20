@@ -2,11 +2,19 @@
 
 > Limits terms (categories, post tags, custom taxonomy terms) on a per post type basis
 
+Do you have lazy authors who don't care using a single tag?
+Do you have wannabe SEO experts using all of your tags on each post?
+
+Set an end to that. Just like seen on StackOverflow and other
+StackExchange sites: minimum 1 tag, maximum 5.
+
+(Yes you can define the amount yourself)
+
 Needs **PHP 5.4+** to run. Will break with lower PHP versions.
 
 ### Is this a plugin?
 
-**Yes** <strike>No (not yet). It's a library (by now).</strike>
+**Yes**. For WordPress.
 
 ## How to install?
 

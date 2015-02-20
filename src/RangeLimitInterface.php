@@ -12,7 +12,7 @@ interface RangeLimitInterface
 	 * @param array $range
 	 * @return void
 	 */
-	public function setRange( Array $range = [ 0, 1, 2 ] );
+	public function setRange( Array $range = [ 0, 1, 2, ] );
 
 	/**
 	 * @return bool

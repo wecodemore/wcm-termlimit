@@ -22,8 +22,6 @@ class Post implements PostInterface
 
 		is_null( $this->post )
 			and $this->post = new \WP_Error( 'term-limit', 'Invalid post ID' );
-
-		return $this;
 	}
 
 	/**
