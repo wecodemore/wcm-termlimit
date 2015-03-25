@@ -78,6 +78,9 @@ class Limiter implements TypeLimitInterface, RangeLimitInterface
 	 */
 	public function inRange()
 	{
-		return in_array( absint( count( $this->taxons ) ), $this->range );
+		return in_array(
+			absint( count( $this->taxons ) ),
+			$this->range
+		);
 	}
 }
